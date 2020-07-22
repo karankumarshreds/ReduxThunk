@@ -10,9 +10,9 @@ class PostList extends React.Component {
     render() {
         return (
             <h1>Post List</h1>
-        )
-    }
-}
+        );
+    };
+};
 
 const mapStateToProps = (state) => {
     return { posts: state.posts };

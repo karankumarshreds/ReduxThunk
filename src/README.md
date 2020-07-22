@@ -3,7 +3,7 @@
 * Action creators inside of redux are supposed to only return a PLAIN JS OBJECT with a type property and optionally a payload.
 * When the async await code runs, it is compiled as ES2015 code inside the browser. 
 
-#### How does THUNK works?
+#### How does THUNK work?
 
 Its a middleware which allows us to deal with the *async action creators*.
 It stops the flow of action creator --> reducers and executes the code written inside of it.
@@ -16,5 +16,6 @@ It stops the flow of action creator --> reducers and executes the code written i
 
 ### Steps: 
 > Import it in the root Index.js file 
+
 > Import apply middleware to use this middleware inside the same file
 
