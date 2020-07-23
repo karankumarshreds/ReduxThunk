@@ -6,7 +6,7 @@ export const fetchPosts = () => {
     // we are using thunk and it will automatically call this fn()
 
     return async (dispatch) => {
-        const response = await axiosBaseUrl.get('/posts');
-        dispatch({ type: 'FETCH_POSTS', payload: response });
+        const { data } = await axiosBaseUrl.get('/posts');
+        dispatch({ type: 'FETCH_POSTS', payload: data });
     };
 };

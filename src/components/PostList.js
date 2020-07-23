@@ -8,12 +8,14 @@ class PostList extends React.Component {
         this.props.fetchPosts();
     };
     render() {
+        console.log(this.props.posts)
         return (
             <h1>Post List</h1>
         );
     };
 };
 
+// state has properties returned by each reducers
 const mapStateToProps = (state) => {
     return { posts: state.posts };
 };
