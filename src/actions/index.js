@@ -1,12 +1,25 @@
-import axiosBaseUrl from '../api/apiBaseUrl';
+import jsonPlaceholder from '../apis/jsonPlaceHolder';
 
-export const fetchPosts = () => {
+export const fetchPostsAndUsers = () => async (dispatch, getState) => {
+    await dispatch(fetchPosts());
+    const posts = getState().posts;
+    let users = []
+    posts.map(post => {
+        if (!users.includes(post.userId)) {
+            users.push(post.userId)
+        }
+    });
+    users.forEach(each => dispatch(fetchUser(each)));
+}
 
-    // we can return a function and manually dispatch because 
-    // we are using thunk and it will automatically call this fn()
+export const fetchPosts = () => async dispatch => {
+    const response = await jsonPlaceholder.get('/posts');
 
-    return async (dispatch) => {
-        const { data } = await axiosBaseUrl.get('/posts');
-        dispatch({ type: 'FETCH_POSTS', payload: data });
-    };
+    dispatch({ type: 'FETCH_POSTS', payload: response.data });
+};
+
+export const fetchUser = id => async dispatch => {
+    const response = await jsonPlaceholder.get(`/users/${id}`);
+
+    dispatch({ type: 'FETCH_USER', payload: response.data });
 };

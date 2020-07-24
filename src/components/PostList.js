@@ -1,16 +1,34 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchPosts } from '../actions';
+import { fetchPostsAndUsers } from '../actions';
+import UserHeader from './UserHeader';
 
 class PostList extends React.Component {
     componentDidMount() {
         // api requests are generally made from inside the component
-        this.props.fetchPosts();
+        this.props.fetchPostsAndUsers();
     };
-    render() {
-        console.log(this.props.posts)
+    renderList() {
         return (
-            <h1>Post List</h1>
+            this.props.posts.map(post => (
+                <div className="item" key={post.id}>
+                    <i className="large middle aligned icon user" />
+                    <div className="content">
+                        <div className="description">
+                            <h2>{post.title}</h2>
+                            <p>{post.body}</p>
+                            <UserHeader userId={post.userId} />
+                        </div>
+                    </div>
+                </div>
+            ))
+        )
+    }
+    render() {
+        return (
+            <div className="ui relaxed divided list">
+                {this.renderList()}
+            </div>
         );
     };
 };
@@ -22,4 +40,4 @@ const mapStateToProps = (state) => {
 
 // first arg is always MSTP
 // second arg is action creators
-export default connect(mapStateToProps, { fetchPosts })(PostList);
+export default connect(mapStateToProps, { fetchPostsAndUsers })(PostList);
